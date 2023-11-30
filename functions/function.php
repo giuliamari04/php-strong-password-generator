@@ -1,32 +1,42 @@
 <?php
-function generatePassword(){
+function generatePassword($options) {
     $symbols = '!?&%$<>^+-*/()[]{}@#_=';
     $letters = 'abcdefghilmnopqrstuvwxyzjk';
     $upLetters = strtoupper($letters);
     $numbers = '0123456789';
 
-
-    if (isset($_GET['passwordLength'])){
-        $passwordlegth = $_GET['passwordLength'];
-        //var_dump($passwordlegth);
-        $newPassword='';
-
-        while(strlen($newPassword)< $passwordlegth){
-
-            $valoriDisponibili = $symbols.$letters.$upLetters.$numbers;
-            $newCharacter = $valoriDisponibili[rand(0, strlen($valoriDisponibili)-1)];
-
-            if(!strpos($newPassword,$newCharacter)){
-                $newPassword .= $newCharacter;
-               
-            }
-        }
-        //var_dump($newPassword); 
-        $_SESSION['password'] = $newPassword;
-        header('Location: showPassword.php');
-        die();
-        
+    $valoriDisponibili = '';
+    if ($options['useNumbers']) {
+        $valoriDisponibili .= $numbers;
     }
-   return false;
+    if ($options['useLetters']) {
+        $valoriDisponibili .= $letters;
+        $valoriDisponibili .= $upLetters;
+    }
+    if ($options['useSymbols']) {
+        $valoriDisponibili .= $symbols;
+    }
+
+    if (empty($valoriDisponibili)) {
+        return 'Errore';
+    }
+
+    $newPassword = '';
+    $usedCharacters = [];
+
+    while (strlen($newPassword) < $options['length']) {
+        $newCharacter = $valoriDisponibili[rand(0, strlen($valoriDisponibili) - 1)];
+
+        if (!$options['allowDuplicates'] && in_array($newCharacter, $usedCharacters)) {
+            // Ignora caratteri duplicati
+        } else {
+            $newPassword .= $newCharacter;
+            $usedCharacters[] = $newCharacter;
+        }
+    }
+
+    return $newPassword;
 }
+
+
 ?>

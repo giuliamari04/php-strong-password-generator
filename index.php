@@ -49,7 +49,7 @@ if (isset($_GET['passwordLength'])) {
     <form action="index.php" method="GET" class="d-flex flex-column bg-light p-4 rounded-2 w-50">
         <div class="d-flex align-items-end justify-content-between ">
             <div>
-                  <label for="passwordLength" class="form-label">Lunghezza Password: (min:6 - max:10 character):</label>
+                  <label for="passwordLength" class="form-label">Lunghezza Password: (min: 6 - max: 10 character):</label>
             </div>
            <div>
              <input type="number" name="passwordLength" id="passwordLength" min="6" max="10" class="form-control w-100" required>

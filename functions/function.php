@@ -27,10 +27,12 @@ function generatePassword($options) {
     while (strlen($newPassword) < $options['length']) {
         $newCharacter = $valoriDisponibili[rand(0, strlen($valoriDisponibili) - 1)];
 
-        if ($options['allowDuplicates'] && !in_array($newCharacter, $usedCharacters)) {     
+        if ($options['allowDuplicates'] && !in_array($newCharacter, $usedCharacters)) {
+          
             $newPassword .= $newCharacter;
             $usedCharacters[] = $newCharacter;
         } else {
+            
              // Ignora caratteri duplicati
         }
     }

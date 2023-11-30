@@ -1,27 +1,15 @@
 <?php
 session_start();
-function generatePassword($passwordLength){
-    $symbols = '!?&%$<>^+-*/()[]{}@#_=';
-    $letters = 'abcdefghilmnopqrstuvwxyzjk';
-    $upLetters = strtoupper($letters);
-    $numbers = '0123456789';
 
-    $newPassword = '';
+include __DIR__.'/functions/function.php';
 
-    while(strlen($newPassword) < $passwordLength) {
-        $valoriDisponibili = $symbols.$letters.$upLetters.$numbers;
-        $newCharacter = $valoriDisponibili[rand(0, strlen($valoriDisponibili)-1)];
-
-        if(!strpos($newPassword, $newCharacter)) {
-            $newPassword .= $newCharacter;
-        }
-    }
-
-    return $newPassword;
-}
 if (isset($_GET['passwordLength'])) {
     $password = generatePassword($_GET['passwordLength']);
-  
+    $_SESSION['password'] = $password;
+
+    // Redirect alla pagina dedicata
+    header('Location: showPassword.php');
+    exit();
 }
 ?>
 
@@ -40,8 +28,5 @@ if (isset($_GET['passwordLength'])) {
         <input type="number" name="passwordLength" id="passwordLength" min="6" max="20" required>
         <button type="submit">Generate Password</button>
     </form>
-
-    <h1>Your Generated Password:</h1>
-    <p><?php echo $password; ?></p>
 </body>
 </html>

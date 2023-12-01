@@ -63,8 +63,8 @@ if (isset($_GET['passwordLength'])) {
                 <label class="form-check-label">
                     <input class="form-check-input" type="radio" name="allowDuplicates" value="1" checked> Yes
                 </label>
-                <label>
-                    <input type="radio" name="allowDuplicates" value="0"> No
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="allowDuplicates" value="0"> No
                 </label>
             </div>
 

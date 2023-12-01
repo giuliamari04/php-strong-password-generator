@@ -31,6 +31,7 @@ function generatePassword($options) {
           
             $newPassword .= $newCharacter;
             $usedCharacters[] = $newCharacter;
+            //var_dump($newPassword);
         } else {
             
              // Ignora caratteri duplicati
